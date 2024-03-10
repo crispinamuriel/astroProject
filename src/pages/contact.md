@@ -6,4 +6,4 @@ layout: ../layouts/Layout.astro
 
 You can contact us at crispinamuriel@gmail.com
 
-![](/test.png)
+<!-- ![](/test.png) -->

@@ -1,0 +1,30 @@
+---
+// Set up the src/pages/blog/<dynamic> path to serve content from the posts collection specified in src/content/config.js
+import { getCollection } from 'astro:content'
+
+import Layout from '../../layouts/Layout.astro'
+
+// Get the dyanmic parameter from Astr.params
+const { slug } = Astro.params
+
+// Export the getStaticPaths fn to define all valid localhost/blog/[dynamic-slug-path-here]
+// This function returns an array of all the paths that are valid, in order to map it to the correct content page
+export async function getStaticPaths() {
+  // TODO: hardcode static blog paths here? NOPE => 
+  // Use the getCollection() method in order to grab the dynamic-slug-paths...
+  // from the 'posts' collection specified in src/content/config.js passing in 'posts' so it knows which one we want! 
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.slug }, props: { post },
+  }));
+}
+
+// What is happening below?
+const { post } = Astro.props
+const { Content } = await post.render()
+---
+
+<Layout title={post.data.title}>
+  <h1>{post.data.title}</h1>
+  <Content />
+</Layout>

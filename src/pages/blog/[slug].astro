@@ -19,9 +19,10 @@ export async function getStaticPaths() {
   }));
 }
 
-// What is happening below?
+// Take each post and extract the props that are defined in the frontmatter of each post inside src/content/posts/first.md
 const { post } = Astro.props
 const { Content } = await post.render()
+console.log("post", post)
 ---
 
 <Layout title={post.data.title}>
